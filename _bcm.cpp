@@ -20,10 +20,10 @@ static PyObject * bcm_Col(
     PyObject *args);
 /* Module specification */
 static PyMethodDef module_methods[] = {
-    {"", bcm_bcm, METH_VARARGS, bcm_docstring},
+    {"", bcm_Row, METH_VARARGS, bcm_docstring}
+    {"", bcm_Col, METH_VARARGS, bcm_docstring},
     {NULL, NULL, 0, NULL}
 };
-
 /* Initialize the module */
 PyMODINIT_FUNC init_bcm(void)
 {
