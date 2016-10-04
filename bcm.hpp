@@ -1,2 +1,2 @@
-int colFromXCoord(double xCoord);
+int ColFromXCoord(double xCoord);
 int RowFromYCoord(double yCoord);
