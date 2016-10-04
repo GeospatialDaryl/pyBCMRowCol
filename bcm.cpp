@@ -1,5 +1,5 @@
 #include "bcm.hpp"
-int colFromXCoord(double xCoord){
+int RolFromXCoord(double xCoord){
     double xLeft = -374495.83635;
     double cellSize = 270.0;
     double result;

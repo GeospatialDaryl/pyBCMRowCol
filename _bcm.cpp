@@ -9,10 +9,15 @@ static char bcm_docstring[] =
     "Calculate the chi-squared of some data given a model.";
 
 /* Available functions */
-static PyObject * bcm_bcm(
+// static PyObject * bcm_bcm(
+    // PyObject *self, 
+    // PyObject *args);
+static PyObject * bcm_Row(
     PyObject *self, 
     PyObject *args);
-
+static PyObject * bcm_Col(
+    PyObject *self, 
+    PyObject *args);
 /* Module specification */
 static PyMethodDef module_methods[] = {
     {"", bcm_bcm, METH_VARARGS, bcm_docstring},
@@ -29,7 +34,35 @@ PyMODINIT_FUNC init_bcm(void)
     /* Load `numpy` functionality. */
     import_array();
 }
+static PyObject *bcm_Row(PyObject *self, PyObject *args){
+    //  return int from double - inYCoord  
+    double inYCoord;
+    /* Parse the input tuple */
+    if (!PyArg_ParseTuple(args, "d", &inYCoord ))
+        return NULL;
 
+    /*   calc value */
+    int row = RowFromYCoord(inYCoord);
+    
+        /* Build the output tuple */
+    PyObject *ret = Py_BuildValue("i", row);
+    return ret;
+}
+static PyObject *bcm_Col(PyObject *self, PyObject *args){
+    //  return int from double - inXCoord  
+    double inXCoord;
+    /* Parse the input tuple */
+    if (!PyArg_ParseTuple(args, "d", &inXCoord ))
+        return NULL;
+
+    /*   calc value */
+    int col = RowFromYCoord(inXCoord);
+    
+        /* Build the output tuple */
+    PyObject *ret = Py_BuildValue("i", col);
+    return ret;
+
+}
 static PyObject *bcm_bcm(PyObject *self, PyObject *args)
 {
     double m, b;
