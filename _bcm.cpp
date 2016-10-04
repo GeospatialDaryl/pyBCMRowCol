@@ -63,53 +63,53 @@ static PyObject *bcm_Col(PyObject *self, PyObject *args){
     return ret;
 
 }
-static PyObject *bcm_bcm(PyObject *self, PyObject *args)
-{
-    double m, b;
-    PyObject *x_obj, *y_obj, *yerr_obj;
+// static PyObject *bcm_bcm(PyObject *self, PyObject *args)
+// {
+    // double m, b;
+    // PyObject *x_obj, *y_obj, *yerr_obj;
 
-    /* Parse the input tuple */
-    if (!PyArg_ParseTuple(args, "ddOOO", &m, &b, &x_obj, &y_obj,
-                                         &yerr_obj))
-        return NULL;
+    // /* Parse the input tuple */
+    // if (!PyArg_ParseTuple(args, "ddOOO", &m, &b, &x_obj, &y_obj,
+                                         // &yerr_obj))
+        // return NULL;
 
-    /* Interpret the input objects as numpy arrays. */
-    PyObject *x_array = PyArray_FROM_OTF(x_obj, NPY_DOUBLE, NPY_IN_ARRAY);
-    PyObject *y_array = PyArray_FROM_OTF(y_obj, NPY_DOUBLE, NPY_IN_ARRAY);
-    PyObject *yerr_array = PyArray_FROM_OTF(yerr_obj, NPY_DOUBLE,
-                                            NPY_IN_ARRAY);
+    // /* Interpret the input objects as numpy arrays. */
+    // PyObject *x_array = PyArray_FROM_OTF(x_obj, NPY_DOUBLE, NPY_IN_ARRAY);
+    // PyObject *y_array = PyArray_FROM_OTF(y_obj, NPY_DOUBLE, NPY_IN_ARRAY);
+    // PyObject *yerr_array = PyArray_FROM_OTF(yerr_obj, NPY_DOUBLE,
+                                            // NPY_IN_ARRAY);
 
-    /* If that didn't work, throw an exception. */
-    if (x_array == NULL || y_array == NULL || yerr_array == NULL) {
-        Py_XDECREF(x_array);
-        Py_XDECREF(y_array);
-        Py_XDECREF(yerr_array);
-        return NULL;
-    }
+    // /* If that didn't work, throw an exception. */
+    // if (x_array == NULL || y_array == NULL || yerr_array == NULL) {
+        // Py_XDECREF(x_array);
+        // Py_XDECREF(y_array);
+        // Py_XDECREF(yerr_array);
+        // return NULL;
+    // }
 
-    /* How many data points are there? */
-    int N = (int)PyArray_DIM(x_array, 0);
+    // /* How many data points are there? */
+    // int N = (int)PyArray_DIM(x_array, 0);
 
-    /* Get pointers to the data as C-types. */
-    double *x    = (double*)PyArray_DATA(x_array);
-    double *y    = (double*)PyArray_DATA(y_array);
-    double *yerr = (double*)PyArray_DATA(yerr_array);
+    // /* Get pointers to the data as C-types. */
+    // double *x    = (double*)PyArray_DATA(x_array);
+    // double *y    = (double*)PyArray_DATA(y_array);
+    // double *yerr = (double*)PyArray_DATA(yerr_array);
 
-    /* Call the external C function to compute the chi-squared. */
-    double value = bcm(m, b, x, y, yerr, N);
+    // /* Call the external C function to compute the chi-squared. */
+    // double value = bcm(m, b, x, y, yerr, N);
 
-    /* Clean up. */
-    Py_DECREF(x_array);
-    Py_DECREF(y_array);
-    Py_DECREF(yerr_array);
+    // /* Clean up. */
+    // Py_DECREF(x_array);
+    // Py_DECREF(y_array);
+    // Py_DECREF(yerr_array);
 
-    if (value < 0.0) {
-        PyErr_SetString(PyExc_RuntimeError,
-                    "Chi-squared returned an impossible value.");
-        return NULL;
-    }
+    // if (value < 0.0) {
+        // PyErr_SetString(PyExc_RuntimeError,
+                    // "Chi-squared returned an impossible value.");
+        // return NULL;
+    // }
 
-    /* Build the output tuple */
-    PyObject *ret = Py_BuildValue("d", value);
-    return ret;
-}
+    // /* Build the output tuple */
+    // PyObject *ret = Py_BuildValue("d", value);
+    // return ret;
+// }
